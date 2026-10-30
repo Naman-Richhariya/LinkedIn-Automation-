@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "project_id": "chhattisgarh-heart-of-india",
+  "decisions": [
+    {"decision_id": "d-001", "stage": "proposal", "category": "approval_policy", "subject": "Run approval policy",
+     "options_considered": [
+       {"option_id": "full_run", "label": "User pre-authorised the full run", "score": 1, "reason": "User replied 'Do which ever is best' after being shown the options"},
+       {"option_id": "per_gate", "label": "Stop at every gate", "score": 0.4, "reason": "Default policy", "rejected_because": "User delegated the choice"}],
+     "selected": "full_run", "reason": "Explicit user delegation; zero-cost path only, no paid calls", "user_visible": true, "user_approved": true},
+    {"decision_id": "d-002", "stage": "proposal", "category": "downgrade_approval", "subject": "Visual source",
+     "options_considered": [
+       {"option_id": "stock_footage", "label": "Real footage via Wikimedia/Archive/Pexels", "score": 0.9, "reason": "Best authenticity", "rejected_because": "Hosts blocked by session network policy"},
+       {"option_id": "ai_generation", "label": "AI image/video generation", "score": 0.85, "reason": "Cinematic", "rejected_because": "No API keys configured (0/29 image, 0/33 video)"},
+       {"option_id": "illustrated_motion", "label": "Hand-authored SVG illustration + kinetic type", "score": 0.7, "reason": "Fully offline, distinctive"}],
+     "selected": "illustrated_motion", "reason": "Only available path; user said to proceed with whichever is best", "user_visible": true, "user_approved": true},
+    {"decision_id": "d-003", "stage": "proposal", "category": "render_runtime_selection", "subject": "Composition runtime",
+     "options_considered": [
+       {"option_id": "hyperframes", "label": "HyperFrames (HTML/CSS/GSAP)", "score": 0.9, "reason": "Kinetic typography + SVG illustration is native to HTML/GSAP"},
+       {"option_id": "remotion", "label": "Remotion", "score": 0.6, "reason": "Strong for stock scene types/captions", "rejected_because": "Stock scene catalog would look templated; no narration to caption"},
+       {"option_id": "ffmpeg", "label": "FFmpeg", "score": 0.1, "reason": "Concat only", "rejected_because": "No source clips"}],
+     "selected": "hyperframes", "reason": "Best fit for a type-and-illustration reel", "user_visible": true, "user_approved": true},
+    {"decision_id": "d-004", "stage": "proposal", "category": "composition_mode", "subject": "Authoring mode",
+     "options_considered": [
+       {"option_id": "atelier", "label": "Atelier (bespoke)", "score": 0.9, "reason": "Hero single-deliverable piece"},
+       {"option_id": "templated", "label": "Templated", "score": 0.5, "reason": "Fast", "rejected_because": "Generic look"}],
+     "selected": "atelier", "reason": "Single hero reel", "user_visible": true, "user_approved": true},
+    {"decision_id": "d-005", "stage": "proposal", "category": "music_source", "subject": "Background music",
+     "options_considered": [
+       {"option_id": "pixabay", "label": "Pixabay Music", "score": 0.8, "reason": "Produced tracks", "rejected_because": "pixabay.com blocked by network policy"},
+       {"option_id": "procedural", "label": "Original procedurally synthesised percussion + drone (numpy)", "score": 0.6, "reason": "Offline, original, no licensing risk"},
+       {"option_id": "silent", "label": "No music", "score": 0.2, "reason": "Reels without audio underperform", "rejected_because": "Weak for Instagram"}],
+     "selected": "procedural", "reason": "Only available source", "user_visible": true, "user_approved": true},
+    {"decision_id": "d-006", "stage": "proposal", "category": "voice_selection", "subject": "Narration TTS provider",
+     "options_considered": [
+       {"option_id": "piper", "label": "Piper (offline)", "score": 0.6, "reason": "Free", "rejected_because": "Voice model download host (huggingface.co) blocked"},
+       {"option_id": "none", "label": "No narration — on-screen text carries the story", "score": 0.7, "reason": "Common Reel format; viewers often watch muted"}],
+     "selected": "none", "reason": "No TTS provider available", "user_visible": true, "user_approved": true}
+  ]
+}
