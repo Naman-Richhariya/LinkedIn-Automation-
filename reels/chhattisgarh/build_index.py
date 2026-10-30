@@ -307,7 +307,7 @@ S10 = scene(10, f"""
   </svg>
   <div class="center col" style="justify-content:flex-start;padding-top:560px">
     <div class="hindi cream" style="font-size:150px;line-height:1.15;text-align:center" id="s10-hi1">{words("छत्तीसगढ़िया")}</div>
-    <div class="hindi gold" style="font-size:150px;line-height:1.15;text-align:center" id="s10-hi2">{words("सबसे बढ़िया")}</div>
+    <div class="hindi gold" style="font-size:150px;line-height:1.15;text-align:center" id="s10-hi2">{words("सबले बढ़िया")}</div>
     <div class="serif cream" style="font-size:52px;margin-top:30px;opacity:.9" id="s10-en"><em>"Chhattisgarhis are the best"</em></div>
     <div class="pill" id="s10-pill" style="margin-top:60px">HAPPY RAJYOTSAVA · 1 NOV</div>
     <div class="body cream" style="font-size:36px;margin-top:40px;opacity:.8" id="s10-cta">Save · Share · Visit Chhattisgarh</div>

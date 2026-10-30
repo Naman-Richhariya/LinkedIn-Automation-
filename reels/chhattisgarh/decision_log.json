@@ -204,6 +204,44 @@
    "reason": "User requested a voice over; best free local voice available",
    "user_visible": true,
    "user_approved": true
+  },
+  {
+   "decision_id": "d-008",
+   "stage": "assets",
+   "category": "voice_selection",
+   "subject": "Narration TTS provider",
+   "options_considered": [
+    {
+     "option_id": "kokoro_af_heart",
+     "label": "Kokoro af_heart, English narration",
+     "score": 0.5,
+     "reason": "Previous choice",
+     "rejected_because": "User asked for Chhattisgarhi or Hindi narration in an Indian accent"
+    },
+    {
+     "option_id": "chhattisgarhi_tts",
+     "label": "Chhattisgarhi TTS",
+     "score": 0.0,
+     "reason": "Preferred language",
+     "rejected_because": "No available TTS model supports Chhattisgarhi"
+    },
+    {
+     "option_id": "kokoro_hf_alpha",
+     "label": "Kokoro hf_alpha (Hindi, female), Hindi script with Chhattisgarhi greeting/sign-off",
+     "score": 0.8,
+     "reason": "Native Hindi voice, Indian accent, local and free"
+    },
+    {
+     "option_id": "kokoro_hm_omega",
+     "label": "Kokoro hm_omega (Hindi, male)",
+     "score": 0.78,
+     "reason": "Same, male; delivered as alternate cut"
+    }
+   ],
+   "selected": "kokoro_hf_alpha",
+   "reason": "Closest available match to the request; male alternate also delivered",
+   "user_visible": true,
+   "user_approved": true
   }
  ]
 }

@@ -16,23 +16,24 @@ from pathlib import Path
 import numpy as np
 
 SR = 44100
-VOICE = "af_heart"
+VOICE = sys.argv[3] if len(sys.argv) > 3 else "hf_alpha"  # Kokoro Hindi voice
 SPEED = 1.0
 HERE = Path(__file__).parent
 SEG_DIR = HERE / "vo_segments"
 
+# Hindi narration with Chhattisgarhi greeting and sign-off
+# (जोहार = greeting, सबले बढ़िया = the best, गाड़ा-गाड़ा बधाई = heartiest wishes).
 LINES = [
-    (0.5, [("en-us", "Thirty-six forts. One heart.")]),
-    (4.4, [("en-us", "This is"), ("hi", "छत्तीसगढ़।"),
-           ("en-us", "India's twenty-sixth state, born November first, two thousand.")]),
-    (10.4, [("en-us", "More than forty percent of this land is forest. Sal, teak, and mahua.")]),
-    (16.4, [("en-us", "In Bastar, Chitrakote Falls roars across the Indravati. The Niagara of India.")]),
-    (22.4, [("en-us", "They call it"), ("hi", "धान का कटोरा।"), ("en-us", "The rice bowl of India.")]),
-    (28.4, [("en-us", "Bastar Dussehra lasts seventy-five days. One of the longest festivals on Earth.")]),
-    (34.4, [("en-us", "Dhokra artisans still cast metal the four-thousand-year-old way.")]),
-    (40.4, [("en-us", "At Sirpur, the seventh-century Laxman Temple still stands, in brick.")]),
-    (46.4, [("en-us", "And on the plate?"), ("hi", "चीला, फरा, बोरे बासी, ठेठरी, खुरमी।")]),
-    (52.6, [("hi", "छत्तीसगढ़िया, सबसे बढ़िया!"), ("hi", "हैप्पी राज्योत्सव!")]),
+    (0.5, [("hi", "जोहार! छत्तीस गढ़, एक दिल।")]),
+    (4.4, [("hi", "ये है छत्तीसगढ़। भारत का छब्बीसवाँ राज्य, जो एक नवंबर, दो हज़ार को बना।")]),
+    (10.4, [("hi", "यहाँ चालीस प्रतिशत से ज़्यादा धरती पर जंगल है। साल, सागौन और महुआ।")]),
+    (16.4, [("hi", "बस्तर में इंद्रावती पर गरजता चित्रकोट जलप्रपात। भारत का नियाग्रा।")]),
+    (22.4, [("hi", "इसीलिए इसे कहते हैं, धान का कटोरा।")]),
+    (28.4, [("hi", "बस्तर दशहरा पूरे पचहत्तर दिन चलता है। दुनिया के सबसे लंबे त्योहारों में से एक।")]),
+    (34.4, [("hi", "ढोकरा शिल्पी आज भी चार हज़ार साल पुरानी विधि से धातु ढालते हैं।")]),
+    (40.4, [("hi", "सिरपुर में सातवीं सदी का लक्ष्मण मंदिर, ईंटों से बना, आज भी खड़ा है।")]),
+    (46.4, [("hi", "और थाली में? चीला, फरा, बोरे बासी, ठेठरी, खुरमी!")]),
+    (52.6, [("hi", "छत्तीसगढ़िया, सबले बढ़िया!"), ("hi", "राज्योत्सव के गाड़ा गाड़ा बधाई!")]),
 ]
 MAX_LINE = 5.6  # each line must finish before the next scene's swell
 
@@ -68,7 +69,7 @@ def trim(sig, thresh=0.01):
 def build_line(n, segments, speed):
     parts = []
     for k, (lang, text) in enumerate(segments):
-        out = SEG_DIR / f"l{n:02d}_s{k}_{speed:.2f}.wav"
+        out = SEG_DIR / f"{VOICE}_l{n:02d}_s{k}_{speed:.2f}.wav"
         tts(text, lang, out, speed)
         parts.append(trim(read_wav(out)))
         parts.append(np.zeros(int(0.12 * SR)))
