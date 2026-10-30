@@ -495,7 +495,7 @@ page = f"""<!doctype html>
 {S10}
 <div id="progress" class="clip" data-start="0" data-duration="60" data-track-index="20">{progress}</div>
 <div class="clip" data-start="0" data-duration="60" data-track-index="21" style="position:absolute;inset:0;z-index:60;pointer-events:none">{GRAIN}</div>
-<audio id="bgm" src="assets/soundtrack.wav" data-start="0" data-duration="60" data-track-index="30" data-volume="1"></audio>
+<audio id="bgm" src="assets/mix.wav" data-start="0" data-duration="60" data-track-index="30" data-volume="1"></audio>
 </div>
 <script>{JS}</script>
 </body>
