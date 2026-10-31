@@ -1,0 +1,119 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Chitrakote · Pagdandi</title>
+<style>
+@font-face{font-family:Inter;src:url(fonts/Inter-Regular.otf);font-weight:400}
+@font-face{font-family:Inter;src:url(fonts/Inter-Medium.otf);font-weight:500}
+@font-face{font-family:Inter;src:url(fonts/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:Inter;src:url(fonts/Inter-Bold.otf);font-weight:700}
+:root{--ink:#0F172A;--muted:#64748B;--line:#E2E8F0;--bg:#F8FAFC;--accent:#4F46E5;--accent2:#EEF2FF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#1d2433;font-family:Inter,sans-serif;color:var(--ink)}
+#stage{position:absolute;inset:0;overflow:hidden}
+#blurwrap{position:absolute;inset:0}
+#world{position:absolute;left:0;top:0;width:1080px;height:2300px;transform-origin:0 0}
+#wall{position:absolute;inset:0;background:
+  radial-gradient(900px 700px at 20% 15%,#5b7d8c 0%,transparent 70%),
+  radial-gradient(900px 900px at 85% 80%,#7a6a58 0%,transparent 70%),
+  linear-gradient(160deg,#2c4250,#3b3a46 55%,#4a3d36)}
+#panel{position:absolute;left:70px;top:120px;width:940px;height:1720px;border-radius:64px;background:var(--bg);
+  box-shadow:0 60px 120px rgba(0,0,0,.45),0 0 0 10px #0b0f17,0 0 0 12px #2a3242;overflow:hidden}
+.abs{position:absolute}
+#status{left:0;top:0;width:940px;height:70px;font:600 26px Inter;color:var(--ink);padding:24px 56px 0}
+#status .r{position:absolute;right:56px;top:28px;display:flex;gap:8px}
+#status .r i{display:block;width:8px;border-radius:2px;background:var(--ink)}
+#hdr{left:40px;top:80px;width:860px;height:70px;display:flex;align-items:center;gap:14px;font:700 38px Inter;color:var(--accent)}
+#hdr .av{position:absolute;right:0;top:6px;width:58px;height:58px;border-radius:50%;background:#CBD5E1}
+#h1{left:40px;top:180px;font:700 72px Inter;letter-spacing:-1.5px}
+#h2{left:42px;top:272px;font:400 32px Inter;color:var(--muted)}
+#search{left:40px;top:330px;width:860px;height:112px;border-radius:30px;background:#fff;border:2px solid var(--line);
+  display:flex;align-items:center;padding:0 34px;gap:22px;font:500 42px Inter}
+#search.focus{border-color:var(--accent);box-shadow:0 0 0 6px var(--accent2)}
+#search .ph{color:#94A3B8}
+#caret{display:inline-block;width:4px;height:48px;background:var(--accent);margin-left:2px;vertical-align:middle}
+.card{background:#fff;border-radius:34px;box-shadow:0 10px 30px rgba(15,23,42,.08);border:1px solid var(--line)}
+#place{left:40px;top:466px;width:860px;height:480px}
+#photo{position:absolute;left:20px;top:20px;width:820px;height:290px;border-radius:24px;overflow:hidden;background:#cfe6f2}
+#photo canvas{width:820px;height:290px;display:block}
+#tag{position:absolute;left:36px;top:36px;padding:10px 20px;border-radius:999px;background:rgba(255,255,255,.88);font:600 26px Inter}
+#ptitle{position:absolute;left:34px;top:326px;font:700 50px Inter;letter-spacing:-.5px}
+#psub{position:absolute;left:36px;top:394px;font:400 32px Inter;color:var(--muted)}
+#route{left:40px;top:966px;width:860px;height:180px}
+.lab{font:600 24px Inter;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+#rA{position:absolute;left:40px;top:60px;width:26px;height:26px;border-radius:50%;border:6px solid var(--accent);background:#fff}
+#rline{position:absolute;left:78px;top:70px;width:680px;height:6px;
+  background:repeating-linear-gradient(90deg,#A5B4FC 0 18px,transparent 18px 30px)}
+#rB{position:absolute;left:770px;top:36px;width:44px;height:54px}
+#rAl{position:absolute;left:30px;top:112px;font:600 30px Inter}
+#rBl{position:absolute;right:30px;top:112px;font:600 30px Inter;text-align:right}
+#rkm{position:absolute;left:0;width:860px;top:112px;text-align:center;font:700 30px Inter;color:var(--accent)}
+#facts{left:40px;top:1236px;width:860px;height:130px;display:flex;gap:22px}
+.fact{flex:1;height:130px;padding:20px 24px}
+.fact b{display:block;font:700 46px Inter;letter-spacing:-.5px}
+.fact span{display:block;margin-top:6px;font:400 28px Inter;color:var(--muted)}
+#seasonrow{left:40px;top:1460px;width:860px;height:110px;display:flex;align-items:center;gap:26px}
+#seasonrow .lab{width:150px}
+#season{position:relative;width:680px;height:104px;border-radius:999px;background:#E2E8F0}
+#knob{position:absolute;top:8px;left:8px;width:328px;height:88px;border-radius:999px;background:var(--accent);box-shadow:0 6px 16px rgba(79,70,229,.35)}
+.seg{position:absolute;top:0;width:340px;height:104px;display:flex;align-items:center;justify-content:center;font:600 36px Inter}
+#segS{left:0}#segM{left:340px}
+#save{left:40px;top:1586px;height:112px;width:860px;height:120px;border-radius:30px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font:700 42px Inter;box-shadow:0 14px 30px rgba(79,70,229,.35)}
+#toast{left:60px;top:1486px;width:820px;height:130px;border-radius:30px;background:#0F172A;color:#fff;display:flex;align-items:center;gap:26px;padding:0 26px;
+  box-shadow:0 24px 50px rgba(0,0,0,.35);opacity:0}
+#toast canvas{width:120px;height:84px;border-radius:14px;display:block}
+#toast b{display:block;font:700 38px Inter}
+#toast span{display:block;font:400 28px Inter;color:#CBD5E1;margin-top:4px}
+#toast .ok{position:absolute;right:30px;top:39px;width:52px;height:52px;border-radius:50%;background:#22C55E;color:#fff;font:700 34px Inter;text-align:center;line-height:52px}
+/* screen-space layers */
+#flood{position:absolute;left:0;top:0;overflow:hidden;display:none}
+#flood canvas{position:absolute;left:0;top:0}
+#fui{position:absolute;inset:0;pointer-events:none}
+#fchip{position:absolute;left:50%;top:250px;transform:translateX(-50%);padding:18px 34px;border-radius:999px;background:rgba(255,255,255,.9);font:700 40px Inter;white-space:nowrap}
+#bracket{position:absolute;height:40px;border:5px solid #fff;border-bottom:none;border-radius:6px 6px 0 0}
+#badge{position:absolute;left:50%;transform:translateX(-50%);padding:16px 34px;border-radius:24px;background:#fff;font:700 54px Inter;white-space:nowrap;box-shadow:0 18px 40px rgba(0,0,0,.3)}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 60% 45% at 50% 45%,transparent 40%,rgba(5,8,15,.75) 100%);opacity:0}
+#pip{position:absolute;left:0;top:0;width:1080px;height:1920px}
+#cursor{position:absolute;left:0;top:0;width:46px;height:62px;transform-origin:0 0}
+#ring{position:absolute;width:80px;height:80px;margin:-40px 0 0 -40px;border-radius:50%;border:5px solid rgba(79,70,229,.8);opacity:0}
+#chap{position:absolute;left:44px;top:44px;padding:14px 26px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(14px);
+  font:600 30px Inter;display:flex;gap:14px;overflow:hidden}
+#chap .n{color:var(--accent);font-weight:700}
+#hud{position:absolute;left:50%;top:1500px;transform:translateX(-50%);display:flex;gap:10px;padding:14px 18px;border-radius:24px;background:rgba(15,23,42,.72);backdrop-filter:blur(10px);opacity:0}
+#hud i{font:600 36px Inter;font-style:normal;color:#fff;min-width:56px;height:62px;line-height:62px;text-align:center;border-radius:12px;background:rgba(255,255,255,.14);padding:0 12px}
+#cap{position:absolute;left:50%;top:1655px;transform:translateX(-50%);max-width:960px;padding:22px 36px;border-radius:30px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);
+  font:600 42px/1.25 Inter;text-align:center;color:var(--ink);opacity:0;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="mb" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur id="mbg" stdDeviation="0 0"/></filter></svg>
+<div id="stage">
+ <div id="blurwrap"><div id="world">
+  <div id="wall"></div>
+  <div id="panel">
+   <div id="status" class="abs">10:24<div class="r"><i style="height:10px;margin-top:10px"></i><i style="height:14px;margin-top:6px"></i><i style="height:20px"></i></div></div>
+   <div id="hdr" class="abs"><svg width="44" height="44" viewBox="0 0 44 44"><g fill="#4F46E5"><ellipse cx="12" cy="32" rx="6" ry="8"/><ellipse cx="30" cy="14" rx="6" ry="8"/><circle cx="7" cy="20" r="2.4"/><circle cx="25" cy="2.8" r="2.4"/></g></svg>Pagdandi<div class="av"></div></div>
+   <div id="h1" class="abs">Where to next?</div>
+   <div id="h2" class="abs">Plan a trip, one step at a time.</div>
+   <div id="search" class="abs"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="17" cy="17" r="12" fill="none" stroke="#64748B" stroke-width="4"/><path d="M26 26l10 10" stroke="#64748B" stroke-width="4" stroke-linecap="round"/></svg><span id="q"><span class="ph">Search a place</span></span></div>
+   <div id="place" class="abs card"><div id="photo"><canvas id="pc" width="820" height="290"></canvas><div id="tag">Summer</div></div>
+     <div id="ptitle">Chitrakote Falls</div><div id="psub">Bastar, Chhattisgarh</div></div>
+   <div id="route" class="abs card"><div id="rkm"><span id="rkms">38 km by road</span></div><div id="rA"></div><div id="rline"></div>
+     <svg id="rB" viewBox="0 0 44 54"><path d="M22 52C22 52 4 32 4 20a18 18 0 0 1 36 0c0 12-18 32-18 32z" fill="#4F46E5"/><circle cx="22" cy="20" r="7" fill="#fff"/></svg>
+     <div id="rAl">Jagdalpur</div><div id="rBl">Chitrakote</div></div>
+   <div id="facts" class="abs"><div class="fact card" id="f1"><b>29 m</b><span>high</span></div><div class="fact card" id="f2"><b>Widest</b><span>in India</span></div><div class="fact card" id="f3"><b>Indravati</b><span>River</span></div></div>
+   <div id="seasonrow" class="abs"><div class="lab">When</div><div id="season"><div id="knob"></div><div class="seg" id="segS">Summer</div><div class="seg" id="segM">Monsoon</div></div></div>
+   <div id="save" class="abs">Save trip</div>
+   <div id="toast" class="abs"><canvas id="tc" width="240" height="168"></canvas><div id="tt"><b>Trip saved</b><span>Chitrakote · go Jul–Oct</span></div><div class="ok">✓</div></div>
+  </div>
+ </div></div>
+ <div id="vig"></div>
+ <div id="flood"><canvas id="fc" width="1080" height="1920"></canvas>
+   <div id="fui"><div id="fchip">Monsoon · Jul–Oct</div><div id="bracket"></div><div id="badge">≈ 300 m wide</div></div></div>
+ <canvas id="pip" width="1080" height="1920"></canvas>
+ <div id="ring"></div>
+ <svg id="cursor" viewBox="0 0 46 62"><path d="M3 3 L3 48 L15 37 L23 57 L31 53 L23 34 L40 34 Z" fill="#fff" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round"/></svg>
+ <div id="chap"><span class="n">01</span><span class="t">Search</span></div>
+ <div id="hud"></div>
+ <div id="cap"></div>
+</div>
+<script type="module" src="film.js"></script>
+</body></html>
